@@ -18,6 +18,8 @@ class CreateItemsTable extends Migration
             $table->string('name', 50);
             $table->string('image', 250);
             $table->enum('rank', ['1', '2', '3', '4', '5']);
+            $table->decimal('ratio',3,2);
+            $table->enum('type', ['shirt', 'trousers', 'hair', 'prize']);
             $table->unsignedInteger('qty');
             $table->boolean('can_reduce')->default(0);
             $table->timestamps();
