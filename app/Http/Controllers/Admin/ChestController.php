@@ -31,7 +31,7 @@ class ChestController extends Controller
             $item->formatted_created_at = $this->formatTime($item->created_at);
         }
 
-        return view('pages.chest_manage', compact('chests', 'inventories'));
+        return view('pages.chest.index', compact('chests', 'inventories'));
     }
 
     private function formatTime($timestamp)
@@ -64,7 +64,7 @@ class ChestController extends Controller
     }
     public function createChestForm()
     {
-        return view('pages.create_chest');
+        return view('pages.chest.create');
     }
     public function deleteChest($id)
     {
@@ -102,11 +102,11 @@ class ChestController extends Controller
     public function updateChestForm($id)
     {
         $chest = Chest::find($id);
-        return view('pages.update_chest', compact('chest'));
+        return view('pages.chest.update', compact('chest'));
     }
     public function chestDetail($id)
     {
         $chest = Chest::find($id);
-        return view('pages.chest_detail', compact('chest'));
+        return view('pages.chest.detail', compact('chest'));
     }
 }
