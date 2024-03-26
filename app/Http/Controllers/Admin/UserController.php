@@ -45,7 +45,7 @@ class UserController extends Controller
         foreach ($invitations as $item) {
             $item->formatted_created_at = $this->formatTime($item->created_at);
         }
-        return view('pages.user_manage', compact('users', 'invitations'));
+        return view('pages.user.index', compact('users', 'invitations'));
     }
     private function formatTime($timestamp)
     {

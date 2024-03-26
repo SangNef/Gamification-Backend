@@ -22,7 +22,7 @@ class QuestController extends Controller
             $item->formatted_created_at = $this->formatTime($item->created_at);
         }
 
-        return view('pages.quest_manage', compact('quests', 'progess'));
+        return view('pages.quest.index', compact('quests', 'progess'));
     }
     private function formatTime($timestamp)
     {
@@ -32,7 +32,7 @@ class QuestController extends Controller
     }
     public function createQuestForm()
     {
-        return view('pages.create_quest');
+        return view('pages.quest.create');
     }
     public function createQuest(Request $request)
     {
@@ -73,7 +73,7 @@ class QuestController extends Controller
         if (!$quest) {
             return redirect()->back()->with(['error' => 'Quest not found']);
         }
-        return view('pages.update_quest', compact('quest'));
+        return view('pages.quest.update', compact('quest'));
     }
     public function updateQuest(Request $request, $id)
     {

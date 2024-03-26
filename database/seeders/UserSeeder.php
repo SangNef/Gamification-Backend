@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 namespace Database\Seeders;
@@ -42,3 +43,5 @@ class UserSeeder extends Seeder
         ]);
     }
 }
+=======
+>>>>>>> master

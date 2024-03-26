@@ -23,7 +23,7 @@ class PackageController extends Controller
             $item->formatted_created_at = $this->formatTime($item->created_at);
         }
 
-        return view('pages.package_manage', compact('packages', 'orders'));
+        return view('pages.package.index', compact('packages', 'orders'));
     }
     private function formatTime($timestamp)
     {
@@ -33,7 +33,7 @@ class PackageController extends Controller
     }
     public function createPackageForm(Request $request)
     {
-        return view('pages.create_package');
+        return view('pages.package.create');
     }public function createPackage(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -53,7 +53,7 @@ class PackageController extends Controller
     public function packageDetail($id)
     {
         $package = Package::find($id);
-        return view('pages.package_detail', compact('package'));
+        return view('pages.package.detail', compact('package'));
     }
     public function updatePackageForm($id)
     {
