@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\TimeHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Quest;
 use App\Models\QuestProgess;
@@ -18,17 +19,13 @@ class QuestController extends Controller
             ->join('quests', 'quest_progess.quest_id', '=', 'quests.id')
             ->select('quest_progess.*', 'users.name as user_name', 'quests.name as quest_name')
             ->orderByDesc('created_at')->paginate(10);
+
+        $timeHelper = new TimeHelper();
         foreach ($progess as $item) {
-            $item->formatted_created_at = $this->formatTime($item->created_at);
+            $item->formatted_created_at = $timeHelper->formatTime($item->created_at);
         }
 
         return view('pages.quest.index', compact('quests', 'progess'));
-    }
-    private function formatTime($timestamp)
-    {
-        $timeAgo = \Carbon\Carbon::parse($timestamp)->diffForHumans();
-
-        return $timeAgo;
     }
     public function createQuestForm()
     {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\ItemInEventController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\QuestController;
+use App\Http\Controllers\Admin\ShopController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -81,11 +82,18 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/unban-{id}', [UserController::class, 'unbanUser'])->name('user.unban');
     });
 
+
+    // Shop Management
+    Route::prefix('/admin/shop-manage')->group(function () {
+        Route::get('/', [ShopController::class, 'index']);
+    });
+
     // Event Manager
     Route::prefix('/admin/event-manage')->group(function () {
         Route::get('/', [EventController::class, 'index']);
         Route::get('/create', [EventController::class, 'createEventForm']);
         Route::post('/create', [EventController::class, 'createEvent'])->name('event.create');;
+
 
     });
 

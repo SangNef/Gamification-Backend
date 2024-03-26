@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\TimeHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\Reward;
@@ -21,17 +22,12 @@ class ItemController extends Controller
             ->orderByDesc('rewards.created_at')
             ->paginate(10);
 
+        $timeHelper = new TimeHelper();
         foreach ($rewards as $item) {
-            $item->formatted_created_at = $this->formatTime($item->created_at);
+            $item->formatted_created_at = $timeHelper->formatTime($item->created_at);
         }
 
         return view('pages.item.index', compact('items', 'rewards'));
-    }
-    private function formatTime($timestamp)
-    {
-        $timeAgo = \Carbon\Carbon::parse($timestamp)->diffForHumans();
-
-        return $timeAgo;
     }
     public function createItem(Request $request)
     {

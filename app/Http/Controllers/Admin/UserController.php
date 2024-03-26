@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\TimeHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Invitation;
 use App\Models\User;
@@ -42,16 +43,12 @@ class UserController extends Controller
     {
         $users = User::paginate(10);
         $invitations = Invitation::with(['sender', 'receiver'])->paginate(10);
+
+        $timeHelper = new TimeHelper();
         foreach ($invitations as $item) {
-            $item->formatted_created_at = $this->formatTime($item->created_at);
+            $item->formatted_created_at = $timeHelper->formatTime($item->created_at);
         }
         return view('pages.user.index', compact('users', 'invitations'));
-    }
-    private function formatTime($timestamp)
-    {
-        $timeAgo = \Carbon\Carbon::parse($timestamp)->diffForHumans();
-
-        return $timeAgo;
     }
     public function banUser($id)
     {
