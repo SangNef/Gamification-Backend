@@ -32,7 +32,7 @@
 
                 <!-- Logo -->
                 <a href="/admin/dashboard" class=" font-bold text-xl leading-7 text-gray-900 no-underline">
-                    Booker
+                    Gamification
                 </a>
             </nav>
 
@@ -85,7 +85,7 @@
                     <!-- Logo -->
                     <div class="flex items-center px-6 flex-shrink-0 py-10">
                         <a href="#" class="no-underline">
-                            <h2 class="font-bold leading-7 text-xl text-gray-900">Booker</h2>
+                            <h2 class="font-bold leading-7 text-xl text-gray-900">Gamification</h2>
                         </a>
                     </div>
 
