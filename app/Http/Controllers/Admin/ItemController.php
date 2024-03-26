@@ -25,7 +25,7 @@ class ItemController extends Controller
             $item->formatted_created_at = $this->formatTime($item->created_at);
         }
 
-        return view('pages.item_manage', compact('items', 'rewards'));
+        return view('pages.item.index', compact('items', 'rewards'));
     }
     private function formatTime($timestamp)
     {
@@ -57,7 +57,7 @@ class ItemController extends Controller
     }
     public function createItemForm()
     {
-        return view('pages.create_item');
+        return view('pages.item.create');
     }
     public function itemDetail($id)
     {
@@ -65,7 +65,7 @@ class ItemController extends Controller
         if (!$item) {
             return redirect()->back()->with(['error' => 'Item not found']);
         }
-        return view('pages.item_detail', compact('item'));
+        return view('pages.item.detail', compact('item'));
     }
     public function deleteItem($id)
     {
@@ -86,7 +86,7 @@ class ItemController extends Controller
         if (!$item) {
             return redirect()->back()->with(['error' => 'Item not found']);
         }
-        return view('pages.item_update', compact('item'));
+        return view('pages.item.update', compact('item'));
     }
     public function updateItem(Request $request, $id)
     {
