@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventContentsTable extends Migration
+class CreateItemInEventTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateEventContentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('event_contents', function (Blueprint $table) {
+        Schema::create('item_in_event', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('event_id');
-            $table->string('sub_title', 250);
-            $table->string('sub_image', 250);
-            $table->string('sub_content', 500);
-            $table->timestamps();
-
-            // Foreign key
+            $table->foreign('item_id')->references('id')->on('items');
             $table->foreign('event_id')->references('id')->on('events');
         });
     }
@@ -33,6 +29,6 @@ class CreateEventContentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_contents');
+        Schema::dropIfExists('item_in_event');
     }
 }

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\ChestController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\ItemController;
+use App\Http\Controllers\Admin\ItemInEventController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\QuestController;
 use App\Http\Controllers\Admin\UserController;
@@ -77,6 +79,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [UserController::class, 'userManage']);
         Route::put('/ban-{id}', [UserController::class, 'banUser'])->name('user.ban');
         Route::put('/unban-{id}', [UserController::class, 'unbanUser'])->name('user.unban');
+    });
+
+    // Event Manager
+    Route::prefix('/admin/event-manage')->group(function () {
+        Route::get('/', [EventController::class, 'index']);
+        Route::get('/create', [EventController::class, 'createEventForm']);
+        Route::post('/create', [EventController::class, 'createEvent'])->name('event.create');;
+
     });
 
 });
