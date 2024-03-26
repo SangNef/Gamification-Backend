@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\TimeHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Package;
@@ -19,17 +20,13 @@ class PackageController extends Controller
             ->join('packages', 'orders.package_id', '=', 'packages.id')
             ->select('orders.*', 'users.name as user_name', 'packages.point as package_point')
             ->orderByDesc('created_at')->paginate(10);
+        
+        $timeHelper = new TimeHelper();
         foreach ($orders as $item) {
-            $item->formatted_created_at = $this->formatTime($item->created_at);
+            $item->formatted_created_at = $timeHelper->formatTime($item->created_at);
         }
 
         return view('pages.package.index', compact('packages', 'orders'));
-    }
-    private function formatTime($timestamp)
-    {
-        $timeAgo = \Carbon\Carbon::parse($timestamp)->diffForHumans();
-
-        return $timeAgo;
     }
     public function createPackageForm(Request $request)
     {

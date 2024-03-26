@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\QuestController;
+use App\Http\Controllers\Admin\ShopController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -77,6 +78,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [UserController::class, 'userManage']);
         Route::put('/ban-{id}', [UserController::class, 'banUser'])->name('user.ban');
         Route::put('/unban-{id}', [UserController::class, 'unbanUser'])->name('user.unban');
+    });
+
+    // Shop Management
+    Route::prefix('/admin/shop-manage')->group(function () {
+        Route::get('/', [ShopController::class, 'index']);
     });
 
 });

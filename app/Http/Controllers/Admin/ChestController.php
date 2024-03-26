@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\TimeHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Chest;
 use App\Models\Inventory;
@@ -15,6 +16,7 @@ class ChestController extends Controller
     public function showAllChest()
     {
         $chests = Chest::all();
+        $timeHelper = new TimeHelper();
 
         $inventories = Inventory::join('users', 'inventories.user_id', '=', 'users.id')
             ->join('chests', 'inventories.chest_id', '=', 'chests.id')
@@ -28,17 +30,10 @@ class ChestController extends Controller
 
         // Định dạng thời gian
         foreach ($inventories as $item) {
-            $item->formatted_created_at = $this->formatTime($item->created_at);
+            $item->formatted_created_at = $timeHelper->formatTime($item->created_at);
         }
 
         return view('pages.chest.index', compact('chests', 'inventories'));
-    }
-
-    private function formatTime($timestamp)
-    {
-        $timeAgo = \Carbon\Carbon::parse($timestamp)->diffForHumans();
-
-        return $timeAgo;
     }
 
     public function createChest(Request $request)

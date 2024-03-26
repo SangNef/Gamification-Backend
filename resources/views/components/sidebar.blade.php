@@ -115,6 +115,10 @@
                                 href="/admin/user-manage"
                                 class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Users manage</a>
                         </li>
+                        <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
+                                href="/admin/shop-manage"
+                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Shop manage</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
