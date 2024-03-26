@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 namespace Database\Seeders;
@@ -16,16 +17,31 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // create seeder for users table with 1 data
         DB::table('users')->insert([
-            'name' => 'admin',
-            'phone' => '0559532643',
-            'password' => Hash::make('admin1234'),
-            'invite_code' => Str::random(6),
-            'point' => 100,
-            'is_admin' => 1,
-            'created_at' => now(),
-            'updated_at' => now(),
+            [
+                'name' => 'Admin',
+                'phone' => '0123456789',
+                'password' => Hash::make('admin123'),
+                'invite_code' => Str::random(6),
+                'point' => 100,
+                'is_admin' => 1,
+                'skin_color'=>'#ffffff',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'User',
+                'phone' => '0123456788',
+                'password' => Hash::make('user123'),
+                'invite_code' => Str::random(6),
+                'point' => 50,
+                'is_admin' => 0,
+                'skin_color'=>'#ffffff',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }
+=======
+>>>>>>> master

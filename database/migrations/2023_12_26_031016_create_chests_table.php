@@ -19,9 +19,11 @@ class CreateChestsTable extends Migration
             $table->string('image', 250);
             $table->enum('type', ['1', '2', '3', '4', '5']);
             $table->unsignedInteger('point');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

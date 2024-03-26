@@ -20,6 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('password', 250);
             $table->string('invite_code', 50)->unique();
             $table->unsignedInteger('point')->default(0);
+            $table->string('avatar',250)->nullable();
+            $table->string('avatar_frame',250)->nullable();
+            $table->string('skin_color',20);
             $table->boolean('is_admin')->default(0);
             $table->rememberToken();
             $table->timestamps();
