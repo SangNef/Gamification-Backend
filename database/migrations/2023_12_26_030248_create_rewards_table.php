@@ -19,7 +19,9 @@ class CreateRewardsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items');
-            $table->enum('status', ['0', '1', '2'])->default('0');
+            $table->boolean('status')->default(0);
+            $table->boolean('in_use')->default(0);
+            $table->enum('type', ['shirt', 'trousers', 'hair', 'prize']);
             $table->timestamps();
         });
     }
