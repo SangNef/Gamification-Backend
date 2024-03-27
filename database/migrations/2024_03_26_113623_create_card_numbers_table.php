@@ -17,7 +17,7 @@ class CreateCardNumbersTable extends Migration
             $table->bigIncrements('id');
             $table->string('number', 50);
             $table->boolean('status')->default(false);
-            $table->timestamp('used_at')->nullable();
+            $table->timestamp('delete_at')->nullable();
             $table->timestamps();
         });
     }

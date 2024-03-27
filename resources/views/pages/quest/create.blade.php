@@ -42,12 +42,12 @@
                         type</label><span class="text-red-500">*</span>
                     <div class="w-full flex justify-around text-gray-900">
                         <div>
-                            <input type="radio" id="daily" name="type" value="daily" checked>
-                            <label for="daily">Daily</label>
+                            <input type="radio" id="one_time" name="type" value="one_time" checked>
+                            <label for="one_time">One time</label>
                         </div>
                         <div>
-                            <input type="radio" id="one_time" name="type" value="one_time">
-                            <label for="one_time">One time</label>
+                            <input type="radio" id="daily" name="type" value="daily">
+                            <label for="daily">Daily</label>
                         </div>
                     </div>
                 </div>
@@ -69,4 +69,17 @@
             </form>
         </div>
     </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('input[name="type"]').forEach(function (element) {
+                element.addEventListener("change", function () {
+                    if (document.getElementById('daily').checked) {
+                        document.getElementById('completion').value = 1;
+                    } else {
+                        document.getElementById('completion').value = '';
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
