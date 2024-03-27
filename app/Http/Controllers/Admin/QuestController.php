@@ -34,7 +34,7 @@ class QuestController extends Controller
     public function createQuest(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:250',
+            'name' => 'required|string|max:250|unique:quests,name',
             'type' => 'required|in:daily,one_time',
             'max_completion' => 'required|integer|min:0',
             'point' => 'required|integer|min:0',
@@ -42,10 +42,15 @@ class QuestController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        if ($request->input('type') == 'daily') {
+            $completion = 1;
+        } else {
+            $completion = $request->input('max_completion');
+        }
         $quest = new Quest([
             'name' => $request->input('name'),
             'type' => $request->input('type'),
-            'max_completion' => $request->input('max_completion'),
+            'max_completion' => $completion,
             'point' => $request->input('point'),
         ]);
         $quest->save();

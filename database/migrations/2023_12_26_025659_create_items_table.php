@@ -17,11 +17,12 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('name', 50);
             $table->string('image', 250);
-            $table->enum('rank', ['1', '2', '3', '4', '5']);
-            $table->decimal('ratio',3,2);
-            $table->enum('type', ['shirt', 'trousers', 'hair', 'prize','point']);
-            $table->boolean('can_reduce')->default(0);
+            $table->enum('rank', ['common', 'uncommon', 'rare', 'epic', 'legendary']);
+            $table->enum('type', ['shirt', 'trousers', 'weapon', 'shield', 'prize','point']);
             $table->boolean('status')->default(1);
+            $table->boolean('is_limit')->default(0);
+            $table->boolean('can_sell')->default(1);
+            $table->string('note', 250)->nullable();
             $table->timestamps();
         });
     }

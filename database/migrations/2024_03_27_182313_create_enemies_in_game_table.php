@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShopTable extends Migration
+class CreateEnemiesInGameTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateShopTable extends Migration
      */
     public function up()
     {
-        Schema::create('shop', function (Blueprint $table) {
+        Schema::create('enemies_in_game', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('reward_id');
-            $table->foreign('reward_id')->references('id')->on('rewards');
-            $table->unsignedInteger('price');
-            $table->boolean('status')->default(1);
+            $table->unsignedBigInteger('enemy_id');
+            $table->unsignedBigInteger('game_id');
+            $table->foreign('enemy_id')->references('id')->on('enemies');
+            $table->foreign('game_id')->references('id')->on('games');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateShopTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop');
+        Schema::dropIfExists('enemies_in_game');
     }
 }

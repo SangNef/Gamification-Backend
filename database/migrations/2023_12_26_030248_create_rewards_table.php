@@ -20,8 +20,8 @@ class CreateRewardsTable extends Migration
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items');
             $table->boolean('status')->default(0);
-            $table->boolean('in_use')->default(0);
-            $table->enum('type', ['shirt', 'trousers', 'hair', 'prize']);
+            $table->boolean('is_use')->default(0);
+            $table->string('note', 250)->nullable();
             $table->timestamps();
         });
     }
