@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLevelsTable extends Migration
+class CreateNpcsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateLevelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('levels', function (Blueprint $table) {
+        Schema::create('npcs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('level');
-            $table->unsignedInteger('exp');
-            $table->unsignedInteger('dame');
-            $table->unsignedInteger('hp');
-            $table->unsignedInteger('def');
+            $table->string('name', 100);
+            $table->string('access', 250);
+            $table->enum('role', ['doctor'. 'blacksmith', 'merchant', 'tailor', 'innkeeper', 'quest_giver']);
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateLevelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('levels');
+        Schema::dropIfExists('npcs');
     }
 }

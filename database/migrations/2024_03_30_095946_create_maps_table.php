@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLevelsTable extends Migration
+class CreateMapsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateLevelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('levels', function (Blueprint $table) {
+        Schema::create('maps', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('level');
-            $table->unsignedInteger('exp');
-            $table->unsignedInteger('dame');
-            $table->unsignedInteger('hp');
-            $table->unsignedInteger('def');
+            $table->string('name', 100);
+            $table->unsignedBigInteger('map_access_id');
+            $table->foreign('map_access_id')->references('id')->on('map_accesses');
+            $table->unsignedInteger('level_requirement')->default(1);
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateLevelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('levels');
+        Schema::dropIfExists('maps');
     }
 }

@@ -16,10 +16,13 @@ class CreateQuestsTable extends Migration
         Schema::create('quests', function (Blueprint $table) {
             $table->id();
             $table->string('name', 250);
-            $table->enum('type', ['daily', 'one_time']);
+            $table->enum('type', ['daily', 'one_time', 'story']);
             $table->unsignedInteger('max_completion');
             $table->unsignedInteger('point');
-            $table->boolean('status')->default(0);
+            $table->unsignedInteger('exp');
+            $table->unsignedInteger('gold');
+            $table->unsignedInteger('level_requirement');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

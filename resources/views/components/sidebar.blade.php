@@ -97,34 +97,48 @@
                         </li>
                         <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
                                 href="/admin/chest-manage"
-                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Chests manage</a>
+                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Chests
+                                manage</a>
                         </li>
                         <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
                                 href="/admin/item-manage"
-                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Items manage</a>
+                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Items
+                                manage</a>
                         </li>
                         <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
                                 href="/admin/package-manage"
-                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Packages manage</a>
+                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Packages
+                                manage</a>
                         </li>
                         <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
                                 href="/admin/quest-manage"
-                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Quests manage</a>
+                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Quests
+                                manage</a>
                         </li>
                         <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
                                 href="/admin/user-manage"
-                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Users manage</a>
+                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Users
+                                manage</a>
                         </li>
                         <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
-
                                 href="/admin/shop-manage"
-                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Shop manage</a>
-                                </li>
-                                <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
-
+                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Shop
+                                manage</a>
+                        </li>
+                        <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
                                 href="/admin/event-manage"
-                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Event Manage</a>
-
+                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Event
+                                Manage</a>
+                        </li>
+                        <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
+                                href="/admin/enemy-manage"
+                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Enemy
+                                Manage</a>
+                        </li>
+                        <li class="w-full hover:bg-pink-50 duration-150 py-2 hover:px-2 group"><a
+                                href="/admin/game-manage"
+                                class="block w-full text-sm leading-5 font-normal no-underline text-gray-500 group-hover:text-[#FF6281] rounded-md">Game
+                                Manage</a>
                         </li>
                     </ul>
                 </nav>

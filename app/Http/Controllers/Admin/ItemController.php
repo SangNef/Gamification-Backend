@@ -34,9 +34,10 @@ class ItemController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:50',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'rank' => 'required|in:1,2,3,4,5',
-            'qty' => 'required|integer|min:0',
-            'can_reduce' => 'boolean',
+            'rank' => 'required|in:common,uncommon,rare,epic,legendary',
+            'type' => 'required|in:shirt,trouser,weapon,shield,prize,point',
+            'is_limit' => 'boolean',
+            'can_sell' => 'boolean',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -45,8 +46,9 @@ class ItemController extends Controller
             'name' => $request->input('name'),
             'image' => Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath(),
             'rank' => $request->input('rank'),
-            'qty' => $request->input('qty'),
-            'can_reduce' => $request->has('can_reduce') ? 1 : 0,
+            'type' => $request->input('type'),
+            'is_limit' => $request->input('is_limit'),
+            'can_sell' => $request->input('can_sell'),
         ]);
         $item->save();
         return redirect('/admin/item-manage')->with(['success' => 'Item created successfully'])->withInput();
@@ -112,10 +114,10 @@ class ItemController extends Controller
         if (!$reward) {
             return redirect()->back()->with(['error' => 'Reward not found']);
         }
-        if ($reward->status === '0') {
-            $reward->status = '1';
-        } elseif ($reward->status === '1') {
-            $reward->status = '2';
+        if ($reward->status === 0) {
+            $reward->status = 1;
+        } elseif ($reward->status === 1) {
+            $reward->status = 2;
         } else {
             return redirect()->back()->with(['error' => 'Reward is claimed']);
         }

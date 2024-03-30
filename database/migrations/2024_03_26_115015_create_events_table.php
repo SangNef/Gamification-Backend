@@ -17,6 +17,7 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('title', 250);
             $table->string('banner', 250)->nullable();
+            $table->unsignedInteger('level_requirement')->default(1);
             $table->dateTime('start');
             $table->dateTime('end');
             $table->timestamps();

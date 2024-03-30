@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\ChestController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EnemyController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\GameController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\ItemInEventController;
 use App\Http\Controllers\Admin\PackageController;
@@ -93,8 +95,28 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [EventController::class, 'index']);
         Route::get('/create', [EventController::class, 'createEventForm']);
         Route::post('/create', [EventController::class, 'createEvent'])->name('event.create');;
+    });
 
+    // Enemy Management
+    Route::prefix('/admin/enemy-manage')->group(function () {
+        Route::get('/', [EnemyController::class, 'index']);
+        Route::get('/create', [EnemyController::class, 'createEnemyForm']);
+        Route::post('/create', [EnemyController::class, 'createEnemy'])->name('enemy.create');
+        Route::get('/enemy-{id}-detail', [EnemyController::class, 'enemyDetail']);
+        Route::delete('/delete-{id}', [EnemyController::class, 'deleteEnemy'])->name('enemy.delete');
+        Route::get('/update-{id}', [EnemyController::class, 'updateEnemyForm']);
+        Route::put('/update-{id}', [EnemyController::class, 'updateEnemy'])->name('enemy.update');
+    });
 
+    // Game Management
+    Route::prefix('/admin/game-manage')->group(function () {
+        Route::get('/', [GameController::class, 'index']);
+        Route::get('/create', [GameController::class, 'createGameForm']);
+        Route::post('/create', [GameController::class, 'createGame'])->name('game.create');
+        Route::get('/game-{id}-detail', [GameController::class, 'gameDetail']);
+        Route::delete('/delete-{id}', [GameController::class, 'deleteGame'])->name('game.delete');
+        Route::get('/update-{id}', [GameController::class, 'updateGameForm']);
+        Route::put('/update-{id}', [GameController::class, 'updateGame'])->name('game.update');
     });
 
 });
