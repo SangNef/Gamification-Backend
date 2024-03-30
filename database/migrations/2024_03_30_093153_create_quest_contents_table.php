@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLevelsTable extends Migration
+class CreateQuestContentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateLevelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('levels', function (Blueprint $table) {
+        Schema::create('quest_contents', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('level');
-            $table->unsignedInteger('exp');
-            $table->unsignedInteger('dame');
-            $table->unsignedInteger('hp');
-            $table->unsignedInteger('def');
+            $table->unsignedBigInteger('quest_id');
+            $table->foreign('quest_id')->references('id')->on('quests');
+            $table->string('content', 250);
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateLevelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('levels');
+        Schema::dropIfExists('quest_contents');
     }
 }

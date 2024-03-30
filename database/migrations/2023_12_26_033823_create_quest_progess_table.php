@@ -20,6 +20,9 @@ class CreateQuestProgessTable extends Migration
             $table->unsignedBigInteger('quest_id');
             $table->foreign('quest_id')->references('id')->on('quests');
             $table->unsignedInteger('point');
+            $table->unsignedInteger('exp');
+            $table->unsignedInteger('gold');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

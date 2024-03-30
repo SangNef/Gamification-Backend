@@ -18,7 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('name', 50);
             $table->string('image', 250);
             $table->enum('rank', ['common', 'uncommon', 'rare', 'epic', 'legendary']);
-            $table->enum('type', ['shirt', 'trousers', 'weapon', 'shield', 'prize','point']);
+            $table->enum('type', ['shirt', 'trouser', 'weapon', 'shield', 'prize','point']);
             $table->boolean('status')->default(1);
             $table->boolean('is_limit')->default(0);
             $table->boolean('can_sell')->default(1);

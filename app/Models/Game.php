@@ -21,16 +21,14 @@ class Game extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'point', 'special_reward', 'status',
+        'name', 'point', 'special_reward', 'status', 'rank', 'level',
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'special_reward' => 'json',
-        'status' => 'boolean',
-    ];
+    public function enemies()
+    {
+        return $this->belongsToMany(Enemy::class, 'enemies_in_game', 'game_id', 'enemy_id');
+    }
+    public function process()
+    {
+        return $this->hasMany(GameProcess::class);
+    }
 }
