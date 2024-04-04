@@ -31,7 +31,7 @@
             <table class="w-full border-gray-300">
                 <thead>
                     <tr class="bg-gray-200 text-xs leading-4 font-medium tracking-wider uppercase text-gray-500">
-                        <th class="p-2 border-b text-start">Id</th>
+                        <th class="p-2 border-b text-start">STT</th>
                         <th class="p-2 border-b text-start">Point</th>
                         <th class="p-2 border-b text-start">Price</th>
                         <th class="p-2 border-b text-start">Actions</th>
@@ -41,15 +41,15 @@
                     @foreach ($packages as $package)
                         <tr
                             class="hover:bg-gray-100 even:bg-gray-200 duration-150 text-sm leading-5 font-normal text-gray-500">
-                            <td class="p-2 border-b">{{ $package->id }}</td>
+                            <td class="p-2 border-b">{{ $package->stt }}</td>
                             <td class="p-2 border-b">{{ $package->point }}</td>
                             <td class="p-2 border-b">{{ $package->price }} VNĐ</td>
                             <td class="p-2 border-b text-start">
-                                <a href="/admin/package-manage/update-{{ $package->id }}" class="text-yellow-500 ml-2"><i
+                                <a href="/admin/package-manage/update-{{ $package->stt }}" class="text-yellow-500 ml-2"><i
                                         class="fa-regular fa-pen-to-square"></i></a>
                                 <!-- Modify your delete button code -->
-                                <form action="{{ route('package.delete', $package->id) }}" method="POST" class="inline"
-                                    id="deleteForm{{ $package->id }}">
+                                <form action="{{ route('package.delete', $package->stt) }}" method="POST" class="inline"
+                                    id="deleteForm{{ $package->stt }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="text-red-500 ml-2 deleteButton"

@@ -15,9 +15,11 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('stt');
             $table->unsignedInteger('point');
             $table->boolean('status')->default(0);
             $table->decimal('price', 10, 2);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -23,14 +23,14 @@
             </div>
         @endif
         <div class="mt-4">
-            <a href="/admin/chest-manage/create" class="bg-pink-400 text-white py-2 px-4 rounded no-underline">Add New Chest</a>
+            <a href="{{ route('chest.create') }}" class="bg-pink-400 text-white py-2 px-4 rounded no-underline">Add New Chest</a>
         </div>
         <div class="w-full bg-white rounded-lg shadow my-4 p-6">
             <h2 class="text-xl leading-7 font-bold">Chest list</h2>
             <table class="w-full border-gray-300">
                 <thead>
                     <tr class="bg-gray-200 text-xs leading-4 font-medium tracking-wider uppercase text-gray-500">
-                        <th class="p-2 border-b text-start">Id</th>
+                        <th class="p-2 border-b text-start">Stt</th>
                         <th class="p-2 border-b text-start">Name</th>
                         <th class="p-2 border-b text-start">Type</th>
                         <th class="p-2 border-b text-start">Point</th>
@@ -38,17 +38,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($chests as $chest)
+                    @foreach ($chests as $index => $chest)
                         <tr
                             class="hover:bg-gray-100 even:bg-gray-200 duration-150 text-sm leading-5 font-normal text-gray-500">
-                            <td class="p-2 border-b">{{ $chest->id }}</td>
+                            <td class="p-2 border-b">{{ $index + 1 }}</td>
                             <td class="p-2 border-b">{{ $chest->name }}</td>
                             <td class="p-2 border-b">{{ $chest->type }}</td>
                             <td class="p-2 border-b">{{ $chest->point }}</td>
                             <td class="p-2 border-b text-start">
-                                <a href="/admin/chest-manage/chest-{{ $chest->id }}-detail" class="text-blue-500"><i
+                                <a href="{{ route('chest.detail', $chest->id) }}" class="text-blue-500"><i
                                         class="fa-regular fa-eye"></i></a>
-                                <a href="/admin/chest-manage/update-{{ $chest->id }}" class="text-yellow-500 ml-2"><i
+                                <a href="{{ route('chest.update', $chest->id) }}" class="text-yellow-500 ml-2"><i
                                         class="fa-regular fa-pen-to-square"></i></a>
                                 <!-- Modify your delete button code -->
                                 <form action="{{ route('chest.delete', $chest->id) }}" method="POST" class="inline"
@@ -103,15 +103,15 @@
             </nav>
         </div>
     </section>
+    <!-- Add the following CDN links in your HTML file -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Add this in your HTML file -->
+    <!-- Add the following script at the end of your view or in your layout file -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Add this script at the end of your view or in your layout file -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get all elements with the class 'deleteButton'

@@ -15,11 +15,13 @@ class CreateChestsTable extends Migration
     {
         Schema::create('chests', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('stt');
             $table->string('name', 50);
             $table->string('image', 250);
             $table->enum('type', ['1', '2', '3', '4', '5']);
             $table->unsignedInteger('point');
             $table->boolean('status')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

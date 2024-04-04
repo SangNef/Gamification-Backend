@@ -92,17 +92,17 @@
 
     <script>
         var availableItems = {!! json_encode($items) !!};
-    
+
         document.getElementById('search-items').addEventListener('input', function() {
-            var searchText = this.value.toLowerCase(); 
+            var searchText = this.value.toLowerCase();
             var selectedItemsDiv = document.getElementById('selected-items');
-    
+
             selectedItemsDiv.innerHTML = '';
-    
+
             var filteredItems = availableItems.filter(function(item) {
                 return item.name.toLowerCase().includes(searchText);
             });
-    
+
             filteredItems.forEach(function(item) {
                 var itemDiv = document.createElement('div');
                 itemDiv.textContent = item.name;
