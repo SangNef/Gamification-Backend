@@ -11,7 +11,18 @@
             </a>
             <p class="text-gray-400 mt-3">/ User manage</p>
         </div>
-        <h1 class="font-bold text-2xl leading-7 my-6">User manage</h1>
+        <div class="relative flex items-center justify-between w-full">
+            <h1 class="font-bold text-2xl leading-7 my-6">User manage</h1>
+            <div class="relative text-gray-500">
+                <form action="{{ route('user.manage') }}" method="GET">
+                    <input type="search" name="keyword" class="py-2 px-4 w-96 rounded-md focus:outline-none"
+                        placeholder="Search by name or phone" value="{{ request('keyword') }}">
+                    <button type="submit" class="absolute top-0 right-0 mt-2 mr-2">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
         @if (session('success'))
             <div class="bg-green-500 text-white p-4 mb-4 rounded">
                 {{ session('success') }}
@@ -27,7 +38,7 @@
             <table class="w-full border-gray-300">
                 <thead>
                     <tr class="bg-gray-200 text-xs leading-4 font-medium tracking-wider uppercase text-gray-500">
-                        <th class="p-2 border-b text-start max-sm:hidden">Id</th>
+                        <th class="p-2 border-b text-start max-sm:hidden">STT</th>
                         <th class="p-2 border-b text-start">Name</th>
                         <th class="p-2 border-b text-start">Phone</th>
                         <th class="p-2 border-b text-start">Point</th>
@@ -37,54 +48,71 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
-                        <tr
-                            class="hover:bg-gray-100 even:bg-gray-200 duration-150 text-sm leading-5 font-normal text-gray-500">
-                            <td class="p-2 border-b max-sm:hidden">{{ $user->id }}</td>
-                            <td class="p-2 border-b">{{ $user->name }}</td>
-                            <td class="p-2 border-b">{{ $user->phone }}</td>
-                            <td class="p-2 border-b">{{ $user->point }}</td>
-                            <td class="p-2 border-b max-sm:hidden">
-                                @if ($user->is_admin)
-                                    <p class="inline-block my-auto px-[10px] py-[2px] bg-blue-100 text-blue-800 rounded-xl">
-                                        Is admin</p>
-                                @else
-                                    <p class="inline-block my-auto px-[10px] py-[2px] bg-green-100 text-green-800 rounded-xl">
-                                        Not admin</p>
-                                @endif
-                            </td>
-                            <td class="p-2 border-b max-sm:hidden">
-                                @if ($user->is_banned)
-                                    <p class="inline-block my-auto px-[10px] py-[2px] bg-red-100 text-red-800 rounded-xl">
-                                        Banned</p>
-                                @else
-                                    <p class="inline-block my-auto px-[10px] py-[2px] bg-blue-100 text-blue-800 rounded-xl">
-                                        Unbanned</p>
-                                @endif
-                            </td>
-                            <td class="p-2 border-b" x-data="{ isFormVisible: false }">
-                                <i class="fa-solid fa-ellipsis-vertical cursor-pointer"
-                                    @click="isFormVisible = !isFormVisible"></i>
-                                @if ($user->is_banned)
-                                    <form x-show="isFormVisible"
-                                        class="absolute -translate-x-[100%] bg-white px-2 py-1 rounded border"
-                                        action="{{ route('user.unban', $user->id) }}" method="post">
-                                        @csrf
-                                        @method('PUT')
-                                        <button>Unban user</button>
-                                    </form>
-                                @else
-                                    <form x-show="isFormVisible"
-                                        class="absolute -translate-x-[100%] bg-white px-2 py-1 rounded border"
-                                        action="{{ route('user.ban', $user->id) }}" method="post">
-                                        @csrf
-                                        @method('PUT')
-                                        <button>Ban user</button>
-                                    </form>
-                                @endif
+                    @if (count($users) > 0)
+                        @php
+                            $stt = 1;
+                        @endphp
+                        @foreach ($users as $user)
+                            <tr
+                                class="hover:bg-gray-100 even:bg-gray-200 duration-150 text-sm leading-5 font-normal text-gray-500">
+                                <td class="p-2 border-b max-sm:hidden">{{ $stt }}</td>
+                                <td class="p-2 border-b">{{ $user->name }}</td>
+                                <td class="p-2 border-b">{{ $user->phone }}</td>
+                                <td class="p-2 border-b">{{ $user->point }}</td>
+                                <td class="p-2 border-b max-sm:hidden">
+                                    @if ($user->is_admin)
+                                        <p
+                                            class="inline-block my-auto px-[10px] py-[2px] bg-blue-100 text-blue-800 rounded-xl">
+                                            Is admin</p>
+                                    @else
+                                        <p
+                                            class="inline-block my-auto px-[10px] py-[2px] bg-green-100 text-green-800 rounded-xl">
+                                            Not admin</p>
+                                    @endif
+                                </td>
+                                <td class="p-2 border-b max-sm:hidden">
+                                    @if ($user->is_banned)
+                                        <p
+                                            class="inline-block my-auto px-[10px] py-[2px] bg-red-100 text-red-800 rounded-xl">
+                                            Banned</p>
+                                    @else
+                                        <p
+                                            class="inline-block my-auto px-[10px] py-[2px] bg-blue-100 text-blue-800 rounded-xl">
+                                            Unbanned</p>
+                                    @endif
+                                </td>
+                                <td class="p-2 border-b" x-data="{ isFormVisible: false }">
+                                    <i class="fa-solid fa-ellipsis-vertical cursor-pointer"
+                                        @click="isFormVisible = !isFormVisible"></i>
+                                    @if ($user->is_banned)
+                                        <form x-show="isFormVisible"
+                                            class="absolute -translate-x-[100%] bg-white px-2 py-1 rounded border"
+                                            action="{{ route('user.unban', $user->id) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <button>Unban user</button>
+                                        </form>
+                                    @else
+                                        <form x-show="isFormVisible"
+                                            class="absolute -translate-x-[100%] bg-white px-2 py-1 rounded border"
+                                            action="{{ route('user.ban', $user->id) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <button>Ban user</button>
+                                        </form>
+                                    @endif
+                                </td>
+                            </tr>
+                            @php
+                                $stt++;
+                            @endphp
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="6" class="text-center text-sm leading-5 font-normal text-gray-500 pt-2">No data
                             </td>
                         </tr>
-                    @endforeach
+                    @endif
                 </tbody>
             </table>
             <nav class="mt-4">
@@ -98,22 +126,32 @@
             <table class="w-full border-gray-300">
                 <thead>
                     <tr class="bg-gray-200 text-xs leading-4 font-medium tracking-wider uppercase text-gray-500">
-                        <th class="p-2 border-b text-start">Id</th>
+                        <th class="p-2 border-b text-start">Stt</th>
                         <th class="p-2 border-b text-start">Sender</th>
                         <th class="p-2 border-b text-start">Receiver</th>
                         <th class="p-2 border-b text-start">Invite at</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($invitations as $item)
-                        <tr
-                            class="hover:bg-gray-100 even:bg-gray-200 duration-150 text-sm leading-5 font-normal text-gray-500">
-                            <td class="p-2 border-b">{{ $item->id }}</td>
-                            <td class="p-2 border-b">{{ $item->sender->name }}</td>
-                            <td class="p-2 border-b">{{ $item->receiver->name }}</td>
-                            <td class="p-2 border-b">{{ $item->formatted_created_at }}</td>
+                    @if (count($invitations) > 0)
+                        @php
+                            $stt = 1;
+                        @endphp
+                        @foreach ($invitations as $item)
+                            <tr
+                                class="hover:bg-gray-100 even:bg-gray-200 duration-150 text-sm leading-5 font-normal text-gray-500">
+                                <td class="p-2 border-b">{{ $stt }}</td>
+                                <td class="p-2 border-b">{{ $item->sender->name }}</td>
+                                <td class="p-2 border-b">{{ $item->receiver->name }}</td>
+                                <td class="p-2 border-b">{{ $item->formatted_created_at }}</td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="4" class="text-center text-sm leading-5 font-normal text-gray-500 pt-2">No data
+                            </td>
                         </tr>
-                    @endforeach
+                    @endif
                 </tbody>
             </table>
             <nav class="mt-4">

@@ -79,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
 
     // User Management
     Route::prefix('/admin/user-manage')->group(function () {
-        Route::get('/', [UserController::class, 'userManage']);
+        Route::get('/', [UserController::class, 'userManage'])->name('user.manage');
         Route::put('/ban-{id}', [UserController::class, 'banUser'])->name('user.ban');
         Route::put('/unban-{id}', [UserController::class, 'unbanUser'])->name('user.unban');
     });
