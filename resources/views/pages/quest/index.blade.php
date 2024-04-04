@@ -48,6 +48,8 @@
                             <td class="p-2 border-b">{{ $quest->max_completion }}</td>
                             <td class="p-2 border-b">{{ $quest->point }}</td>
                             <td class="p-2 border-b text-start">
+                                <a href="/admin/quest-manage/detail-{{ $quest->id }}-detail" class="text-blue-500"><i
+                                class="fa-regular fa-eye"></i></a>
                                 <a href="/admin/quest-manage/update-{{ $quest->id }}" class="text-yellow-500 ml-2"><i
                                         class="fa-regular fa-pen-to-square"></i></a>
                                 <!-- Modify your delete button code -->

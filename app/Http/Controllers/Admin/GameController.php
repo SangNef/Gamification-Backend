@@ -14,9 +14,9 @@ class GameController extends Controller
     //
     public function index()
     {
-        $games = Game::orderBy("id", "desc")->paginate(10);
+        $games = Game::orderBy("stt", "asc")->paginate(10); // Sắp xếp theo số thứ tự (stt)
         $timeHelper = new TimeHelper();
-        $game_process = GameProcess::orderBy("id","desc")->with("user")->with("game")->paginate(10);
+        $game_process = GameProcess::orderBy("id", "desc")->with("user")->with("game")->paginate(10);
         foreach ($game_process as $process) {
             $process->formatted_completed_at = $timeHelper->formatTime($process->completed_at);
         }
@@ -38,11 +38,15 @@ class GameController extends Controller
             'level' => 'required',
         ]);
 
+        $maxStt = Game::max('stt');
+        $stt = $maxStt + 1;
+
         Game::create([
             'name' => $request->input('name'),
             'point' => $request->input('point'),
             'rank' => $request->input('rank'),
             'level' => $request->input('level'),
+            'stt' => $stt,
         ]);
 
         return redirect('/admin/game-manage')->with(['success' => 'Game created successfully']);
@@ -58,6 +62,9 @@ class GameController extends Controller
     {
         $game = Game::find($id);
         $game->delete();
+
+        // Không cần phải làm gì thêm vì logic cập nhật stt được xử lý trong model Game
+
         return redirect('/admin/game-manage')->with(['success' => 'Game deleted successfully']);
     }
 

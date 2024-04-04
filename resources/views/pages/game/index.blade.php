@@ -31,7 +31,7 @@
             <table class="w-full border-gray-300">
                 <thead>
                     <tr class="bg-gray-200 text-xs leading-4 font-medium tracking-wider uppercase text-gray-500">
-                        <th class="p-2 border-b text-start">Id</th>
+                        <th class="p-2 border-b text-start">Stt</th>
                         <th class="p-2 border-b text-start">Name</th>
                         <th class="p-2 border-b text-start">Rank</th>
                         <th class="p-2 border-b text-start">Level require</th>
@@ -42,7 +42,7 @@
                     @foreach ($games as $game)
                         <tr
                             class="hover:bg-gray-100 even:bg-gray-200 duration-150 text-sm leading-5 font-normal text-gray-500">
-                            <td class="p-2 border-b">{{ $game->id }}</td>
+                            <td class="p-2 border-b">{{ $game->stt }}</td> <!-- Thay thế cột id bằng cột stt -->
                             <td class="p-2 border-b">{{ $game->name }}</td>
                             <td class="p-2 border-b">{{ $game->rank }}</td>
                             <td class="p-2 border-b">{{ $game->level }}</td>
@@ -93,7 +93,7 @@
                             @endif
                         </td>
                         <td class="p-2 border-b">{{ $process->formatted_completed_at }}</td>
-                    </tr>   
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

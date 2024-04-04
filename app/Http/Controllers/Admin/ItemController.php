@@ -15,7 +15,7 @@ class ItemController extends Controller
     //
     public function itemManage()
     {
-        $items = Item::all();
+        $items = Item::orderBy('stt')->get();
         $rewards = Reward::join('users', 'rewards.user_id', '=', 'users.id')
             ->join('items', 'rewards.item_id', '=', 'items.id')
             ->select('rewards.*', 'users.name as user_name', 'items.name as item_name')

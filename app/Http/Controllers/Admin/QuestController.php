@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Helper\TimeHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Quest;
+use App\Models\QuestContent;
 use App\Models\QuestProgess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -27,10 +28,12 @@ class QuestController extends Controller
 
         return view('pages.quest.index', compact('quests', 'progess'));
     }
+
     public function createQuestForm()
     {
         return view('pages.quest.create');
     }
+
     public function createQuest(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -38,37 +41,38 @@ class QuestController extends Controller
             'type' => 'required|in:daily,one_time',
             'max_completion' => 'required|integer|min:0',
             'point' => 'required|integer|min:0',
+            'exp' => 'required|integer|min:0', // Added validation rule for 'exp'
+            'content' => 'required|string|max:250',
         ]);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        if ($request->input('type') == 'daily') {
-            $completion = 1;
-        } else {
-            $completion = $request->input('max_completion');
-        }
+
         $quest = new Quest([
             'name' => $request->input('name'),
             'type' => $request->input('type'),
-            'max_completion' => $completion,
+            'max_completion' => $request->input('type') == 'daily' ? 1 : $request->input('max_completion'),
             'point' => $request->input('point'),
+            'exp' => $request->input('exp'),
+            'gold' => 0,
+            'level_requirement' => 0,
+            'status' => true,
         ]);
+
         $quest->save();
-        return redirect('/admin/quest-manage')->with(['success' => 'Quest created successfully']);
+
+        $questContent = new QuestContent([
+            'quest_id' => $quest->id,
+            'content' => $request->input('content'),
+        ]);
+
+        $questContent->save();
+
+        return redirect('/admin/quest-manage')->with(['success' => 'Quest and associated content created successfully']);
     }
-    public function deleteQuest($id)
-    {
-        $quest = Quest::find($id);
-        if (!$quest) {
-            return redirect()->back()->with(['error' => 'Quest not found']);
-        }
-        $questExists = QuestProgess::where('quest_id', $id)->exists();
-        if ($questExists) {
-            return redirect()->back()->with(['error' => 'Cannot delete this quest!']);
-        }
-        $quest->delete();
-        return redirect()->back()->with(['success' => 'Delete successfully']);
-    }
+
+
     public function updateQuestForm($id)
     {
         $quest = Quest::find($id);
@@ -77,23 +81,65 @@ class QuestController extends Controller
         }
         return view('pages.quest.update', compact('quest'));
     }
-    public function updateQuest(Request $request, $id)
+
+   public function updateQuest(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:250',
             'type' => 'required|in:daily,one_time',
             'max_completion' => 'required|integer|min:0',
             'point' => 'required|integer|min:0',
+            'exp' => 'required|integer|min:0', // Added validation rule for 'exp'
+            'content' => 'required|string|max:250',
         ]);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
         $quest = Quest::find($id);
+        if (!$quest) {
+            return redirect()->back()->with(['error' => 'Quest not found']);
+        }
+
         $quest->name = $request->input('name');
         $quest->type = $request->input('type');
-        $quest->max_completion = $request->input('max_completion');
+        $quest->max_completion = $request->input('type') == 'daily' ? 1 : $request->input('max_completion');
         $quest->point = $request->input('point');
+        $quest->exp = $request->input('exp');
         $quest->save();
-        return redirect('/admin/quest-manage')->with(['success' => 'Quest update successfully'])->withInput();
+
+        // Update associated QuestContent
+        $questContent = QuestContent::where('quest_id', $id)->first();
+        if (!$questContent) {
+            $questContent = new QuestContent();
+            $questContent->quest_id = $id;
+        }
+        $questContent->content = $request->input('content');
+        $questContent->save();
+
+        return redirect('/admin/quest-manage')->with(['success' => 'Quest and associated content updated successfully'])->withInput();
     }
+public function questDetail($id)
+{
+    $quest = Quest::findOrFail($id);
+    $questContent = QuestContent::where('quest_id', $id)->first(); // Lấy nội dung của quest
+    return view('pages.quest.detail', compact('quest', 'questContent'));
+}
+public function deleteQuest($id)
+{
+    try {
+        $quest = Quest::findOrFail($id);
+
+        $quest->questContent()->delete();
+
+        $quest->delete();
+
+        return redirect('/admin/quest-manage')->with('success', 'Quest deleted successfully');
+    } catch (\Exception $e) {
+        return redirect('/admin/quest-manage')->with('error', 'Failed to delete quest. This quest may have associated records.');
+    }
+}
+
+
 }

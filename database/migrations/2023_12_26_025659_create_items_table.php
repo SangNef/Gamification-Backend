@@ -15,6 +15,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('stt');
             $table->string('name', 50);
             $table->string('image', 250);
             $table->enum('rank', ['common', 'uncommon', 'rare', 'epic', 'legendary']);
@@ -23,6 +24,8 @@ class CreateItemsTable extends Migration
             $table->boolean('is_limit')->default(0);
             $table->boolean('can_sell')->default(1);
             $table->string('note', 250)->nullable();
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

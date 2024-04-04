@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\GameController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\ItemInEventController;
+use App\Http\Controllers\Admin\NpcController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\QuestController;
 use App\Http\Controllers\Admin\ShopController;
@@ -67,15 +68,15 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/delete-{id}', [PackageController::class, 'deletePackage'])->name('package.delete');
     });
 
-    // Quest Management
-    Route::prefix('/admin/quest-manage')->group(function () {
-        Route::get('/', [QuestController::class, 'questManage']);
-        Route::get('/create', [QuestController::class, 'createQuestForm']);
-        Route::post('/create', [QuestController::class, 'createQuest'])->name('quest.create');
-        Route::get('/update-{id}', [QuestController::class, 'updateQuestForm']);
-        Route::put('/update-{id}', [QuestController::class, 'updateQuest'])->name('quest.update');
-        Route::delete('/delete-{id}', [QuestController::class, 'deleteQuest'])->name('quest.delete');
-    });
+Route::prefix('/admin/quest-manage')->group(function () {
+    Route::get('/', [QuestController::class, 'questManage']);
+    Route::get('/create', [QuestController::class, 'createQuestForm']);
+    Route::post('/create', [QuestController::class, 'createQuest'])->name('quest.create');
+    Route::get('/update-{id}', [QuestController::class, 'updateQuestForm']);
+    Route::put('/update-{id}', [QuestController::class, 'updateQuest'])->name('quest.update');
+Route::delete('/delete-{id}', [QuestController::class, 'deleteQuest'])->name('quest.delete');
+    Route::get('/detail-{id}', [QuestController::class, 'questDetail'])->name('quest.detail');
+});
 
     // User Management
     Route::prefix('/admin/user-manage')->group(function () {
@@ -118,6 +119,30 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/update-{id}', [GameController::class, 'updateGameForm']);
         Route::put('/update-{id}', [GameController::class, 'updateGame'])->name('game.update');
     });
+
+    //Chest Managemet
+    // Chest Management
+Route::prefix('/admin/chest-manage')->group(function () {
+    Route::get('/', [ChestController::class, 'showAllChest']);
+    Route::get('/create', [ChestController::class, 'createChestForm']);
+    Route::post('/create', [ChestController::class, 'createChest'])->name('chest.create');
+    Route::delete('/delete-{id}', [ChestController::class, 'deleteChest'])->name('chest.delete');
+    Route::get('/update-{id}', [ChestController::class, 'updateChestForm']);
+    Route::put('/update-{id}', [ChestController::class, 'updateChest'])->name('chest.update');
+    Route::get('/chest-{id}-detail', [ChestController::class, 'chestDetail'])->name('chest.detail');
+});
+
+    // NPC Management
+Route::prefix('/admin/npc-manage')->group(function () {
+    Route::get('/', [NpcController::class, 'showAllNpcs']);
+    Route::get('/create', [NpcController::class, 'createNpcForm']);
+    Route::post('/create', [NpcController::class, 'createNpc'])->name('npc.create');
+    Route::delete('/delete-{id}', [NpcController::class, 'deleteNpc'])->name('npc.delete');
+    Route::get('/update-{id}', [NpcController::class, 'updateNpcForm']);
+    Route::put('/update-{id}', [NpcController::class, 'updateNpc'])->name('npc.update');
+    Route::get('/npc-{id}-detail', [NpcController::class, 'npcDetail']);
+});
+
 
 });
 
