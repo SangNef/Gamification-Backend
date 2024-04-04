@@ -39,17 +39,28 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/login');
     }
-    public function userManage()
+    public function userManage(Request $request)
     {
-        $users = User::paginate(10);
+        $usersQuery = User::query();
+
+        if ($request->has('keyword')) {
+            $keyword = $request->keyword;
+            $usersQuery->where('name', 'like', '%' . $keyword . '%')
+                ->orWhere('phone', 'like', '%' . $keyword . '%');
+        }
+
+        $users = $usersQuery->paginate(10);
+
         $invitations = Invitation::with(['sender', 'receiver'])->paginate(10);
 
         $timeHelper = new TimeHelper();
         foreach ($invitations as $item) {
             $item->formatted_created_at = $timeHelper->formatTime($item->created_at);
         }
+
         return view('pages.user.index', compact('users', 'invitations'));
     }
+
     public function banUser($id)
     {
         $user = User::find($id);
